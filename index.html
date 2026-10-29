@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Story of Us 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fff0f5, #f3e8ff, #ffe4ec);
+    color: #57364b;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+h1, h2, h3 {
+    font-family: 'Dancing Script', cursive;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+p {
+    line-height: 1.9;
+}
+
+.hidden {
+    display: none !important;
+}
+
+section {
+    padding: 55px 18px;
+}
+
+.card {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 25px;
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 24px;
+    box-shadow: 0 10px 35px #bc8ca522;
+    text-align: left;
+    animation: fadeIn 1s ease;
+}
+
+.btn {
+    border: none;
+    border-radius: 30px;
+    padding: 13px 25px;
+    background: #e889b1;
+    color: white;
+    font-size: 15px;
+    box-shadow: 0 5px 15px #e889b144;
+    transition: .3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+#intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.envelope {
+    position: relative;
+    width: 210px;
+    height: 140px;
+    background: #eaa3bd;
+    border-radius: 10px;
+    margin: 25px;
+    box-shadow: 0 15px 35px #a65e8033;
+    cursor: pointer;
+    transition: transform .4s;
+}
+
+.envelope:hover {
+    transform: translateY(-8px);
+}
+
+.envelope:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 105px solid transparent;
+    border-right: 105px solid transparent;
+    border-top: 85px solid #f8c4d6;
+    z-index: 2;
+}
+
+.envelope:after {
+    content: "♥";
+    position: absolute;
+    top: 58px;
+    left: 91px;
+    font-size: 30px;
+    color: white;
+    z-index: 3;
+}
+
+#openText {
+    color: #b85e86;
+    font-size: 15px;
+}
+
+.top {
+    padding: 65px 20px 35px;
+}
+
+.eyebrow {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #b66a91;
+}
+
+.date {
+    color: #bc6791;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.memory-title {
+    margin-bottom: 8px;
+}
+
+.divider {
+    color: #d77fa5;
+    font-size: 22px;
+    margin: 18px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    max-width: 850px;
+    margin: auto;
+    padding: 12px;
+}
+
+.photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 17px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px #8b507322;
+    transition: .3s;
+    background: #f7dce8;
+}
+
+.photo:hover {
+    transform: scale(1.025) rotate(-1deg);
+}
+
+#lightbox {
+    position: fixed;
+    inset: 0;
+    background: #251321ef;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#largePhoto {
+    max-width: 92%;
+    max-height: 75vh;
+    border-radius: 15px;
+}
+
+#closeLightbox {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 35px;
+    align-self: flex-end;
+    margin-right: 5%;
+}
+
+.proposal-box {
+    max-width: 650px;
+    margin: auto;
+    padding: 35px 18px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.75);
+}
+
+#buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 100px;
+    margin-top: 30px;
+}
+
+#yesBtn {
+    background: #e56e9f;
+    position: relative;
+    z-index: 2;
+}
+
+#noBtn {
+    background: #9b83b8;
+}
+
+#result {
+    margin-top: 30px;
+    font-size: 18px;
+    color: #b34c7c;
+}
+
+footer {
+    padding: 35px 15px;
+    color: #a66b8b;
+    font-size: 12px;
+}
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatUp 7s linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: .8;
+    }
+    to {
+        transform: translateY(-110vh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 650px) {
+    .gallery {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .photo {
+        height: 270px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING ENVELOPE -->
+
+<section id="intro">
+
+    <div class="eyebrow">A Little Surprise For You</div>
+
+    <h1>💌</h1>
+
+    <div class="envelope" onclick="openStory()"></div>
+
+    <button class="btn" onclick="openStory()">
+        Open This 💗
+    </button>
+
+    <p id="openText">
+        A little piece of my heart, just for you.
+    </p>
+
+</section>
+
+
+<!-- MAIN WEBSITE -->
+
+<main id="mainContent" class="hidden">
+
+    <header class="top">
+
+        <div class="eyebrow">
+            A Story Written By Two Hearts
+        </div>
+
+        <h1>Our Little Universe ✨</h1>
+
+        <p>
+            Some stories are too special to stay unwritten. 💗
+        </p>
+
+        <div class="divider">♡ ── ♡ ── ♡</div>
+
+    </header>
+
+
+    <!-- OUR LOVE STORY -->
+
+    <section id="story">
+
+        <h2>Our Story 📖</h2>
+
+        <p>
+            From one little message to a thousand memories...
+        </p>
+
+
+        <article class="card">
+
+            <div class="date">OCTOBER 30, 2021 💌</div>
+
+            <h3 class="memory-title">The First Message</h3>
+
+            <p>
+                Do you remember the day we first started talking?
+
+                It was during COVID, when I was in ninth grade.
+                One little message started everything.
+
+                We decided to become best friends, without knowing
+                how important we would eventually become to each other.
+
+                Looking back now, I never imagined that one simple
+                conversation would become such a beautiful part of my life.
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">OUR FIRST CALL ☎️</div>
+
+            <h3 class="memory-title">That Shy Little Voice</h3>
+
+            <p>
+                I still remember when you asked if you could call me.
+
+                You were so shy that you barely knew how to talk
+                to a girl on the phone, and that made the moment
+                even more memorable.
+
+                When school reopened, you were right there in my class,
+                but I didn't even recognise you!
+
+                I waited to hear your name during attendance,
+                only to discover that there were two Abhis in our class.
+
+                Even now, these little memories make me smile.
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">FEBRUARY 23, 2022 ❤️</div>
+
+            <h3 class="memory-title">The Beginning Of Us</h3>
+
+            <p>
+                Even when we were just friends, I felt sad whenever
+                you didn't come to class.
+
+                I used to get jealous when you talked to other girls,
+                and sometimes we fought over the smallest things.
+
+                When you first told me about your feelings,
+                I said no because I was afraid of losing our friendship.
+
+                But you kept showing me how much I meant to you.
+
+                Eventually, I said yes, and February 23, 2022,
+                became one of the most special dates in my life.
+
+                That was the beginning of our story as a couple. 💗
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">A MEMORY I WILL KEEP FOREVER 🫶</div>
+
+            <h3 class="memory-title">The First Time You Held My Hand</h3>
+
+            <p>
+                Do you remember when we went to look at schools
+                for our plus one studies?
+
+                That day, you held my hand.
+
+                You probably didn't realise how much that little
+                moment meant to me. Holding your hand was something
+                I had secretly wished for.
+
+                I was so happy that day, and later I told you
+                just how much that moment meant to me.
+
+                It might have been a small thing to you,
+                but it became a beautiful memory for me. ❤️
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">OUR LITTLE FIRSTS 💋</div>
+
+            <h3 class="memory-title">Moments That Became Memories</h3>
+
+            <p>
+                I will always remember our first kiss during that
+                special class. It was unexpected, and it was a first
+                for both of us.
+
+                I still remember secretly putting a sweet in your
+                mouth during our class ten farewell, when nobody noticed.
+
+                And on my birthday, you gave me a gift.
+                When we went near your gym, you gave me my first
+                kiss on the lips.
+
+                These moments may seem small to the world,
+                but they hold a special place in my heart.
+
+                They are little pieces of our story that I never
+                want to forget. 🥹💗
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">EVEN WHEN THINGS GOT HARD 🌧️</div>
+
+            <h3 class="memory-title">We Had Our Difficult Days Too</h3>
+
+            <p>
+                Our story hasn't always been easy.
+
+                We have argued, misunderstood each other,
+                and become upset over little things.
+
+                Sometimes I got scared when my family found out
+                about us. Sometimes I said we should break up
+                because I didn't know what else to do.
+
+                We also felt sad when we couldn't study at the
+                same school or college, even though we both
+                wanted to be together.
+
+                There were moments when we stopped talking,
+                but somehow we found our way back to each other.
+
+                Our relationship isn't perfect, but every experience
+                has taught me something about us. ❤️
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">WHAT I REALISED 💗</div>
+
+            <h3 class="memory-title">You Mean So Much To Me</h3>
+
+            <p>
+                When we stopped talking for a while, I realised
+                just how much I missed you.
+
+                I understood how deeply I cared about you
+                and how much your presence meant to me.
+
+                Some of the happiest moments of my life
+                have been the moments I spent with you.
+
+                Even when things were difficult, being able
+                to talk to you and share my day made me happy.
+
+                You have become such an important part of my life,
+                and I am grateful for all the memories we have made.
+
+                You are one of the most precious gifts life
+                has given me. 🥹❤️
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="date">A LITTLE PROMISE 💌</div>
+
+            <h3 class="memory-title">What I Want For Us</h3>
+
+            <p>
+                I don't expect us to have a perfect relationship.
+
+                I just want us to understand each other,
+                communicate when things get difficult,
+                and never stop trying to make things better.
+
+                I want us to laugh together, make silly memories,
+                support each other, and learn from our mistakes.
+
+                I know we may not always agree,
+                but I hope we always remember why we chose each other.
+
+                Thank you for being part of my life, Abhi.
+
+                I hope our story has many more beautiful chapters
+                waiting for us. ❤️
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <!-- SEPARATE PHOTO GALLERY -->
+
+    <section id="gallerySection">
+
+        <h2>Our Photo Gallery 📸</h2>
+
+        <p>
+            Little pictures, big memories.
+            Click any photo to see it bigger. 💗
+        </p>
+
+        <div class="gallery" id="gallery">
+
+            <!-- Upload your photos to GitHub using these filenames. -->
+
+            <img class="photo"
+                 src="photo1.jpg"
+                 alt="Our photo 1"
+                 onclick="showPhoto(this)">
+
+            <img class="photo"
+                 src="photo2.jpg"
+                 alt="Our photo 2"
+                 onclick="showPhoto(this)">
+
+            <img class="photo"
+                 src="photo3.jpg"
+                 alt="Our photo 3"
+                 onclick="showPhoto(this)">
+
+            <img class="photo"
+                 src="photo4.jpg"
+                 alt="Our photo 4"
+                 onclick="showPhoto(this)">
+
+            <img class="photo"
+                 src="photo5.jpg"
+                 alt="Our photo 5"
+                 onclick="showPhoto(this)">
+
+            <img class="photo"
+                 src="photo6.jpg"
+                 alt="Our photo 6"
+                 onclick="showPhoto(this)">
+
+        </div>
+
+    </section>
+
+
+    <!-- ENLARGED PHOTO VIEW -->
+
+    <div id="lightbox"
+         class="hidden"
+         onclick="closePhoto()">
+
+        <button id="closeLightbox"
+                onclick="closePhoto()">
+            ×
+        </button>
+
+        <img id="largePhoto" src="" alt="Our memory">
+
+        <p>
+            One more memory to keep in my heart. ❤️
+        </p>
+
+    </div>
+
+
+    <!-- FINAL PROPOSAL -->
+
+    <section id="proposal">
+
+        <div class="proposal-box">
+
+            <div class="eyebrow">
+                One Last Thing, From My Heart
+            </div>
+
+            <h1>One Question... 💍</h1>
+
+            <p>
+                After everything we have been through,
+                there is one more thing I want to ask you.
+            </p>
+
+            <h2 id="question">
+                Abhi, will you keep choosing me? ❤️
+            </h2>
+
+            <p id="subtext">
+                Today, tomorrow, and through all our little ups and downs.
+            </p>
+
+            <div id="proposalGif" style="font-size:55px;">
+                💗🌷💗
+            </div>
+
+            <div id="buttons">
+
+                <button class="btn"
+                        id="yesBtn"
+                        onclick="sayYes()">
+                    YES, ALWAYS ❤️
+                </button>
+
+                <button class="btn" id="noBtn">
+                    NO 🙈
+                </button>
+
+            </div>
+
+            <div id="result"></div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        Made with love, just for you. 💌
+        <br>
+        Some stories are worth choosing again and again. ❤️
+    </footer>
+
+</main>
+
+
+<script>
+
+// OPEN THE WEBSITE
+
+function openStory() {
+
+    document.getElementById("intro")
+        .classList.add("hidden");
+
+    document.getElementById("mainContent")
+        .classList.remove("hidden");
+
+    window.scrollTo(0, 0);
+
+    startHearts();
+}
+
+
+// PHOTO GALLERY
+
+function showPhoto(photo) {
+
+    document.getElementById("largePhoto").src = photo.src;
+
+    document.getElementById("lightbox")
+        .classList.remove("hidden");
+
+}
+
+function closePhoto() {
+
+    document.getElementById("lightbox")
+        .classList.add("hidden");
+
+}
+
+
+// PROPOSAL MESSAGES
+
+const noMessages = [
+
+    {
+        text: "Think again, Abhi! 🥺",
+        sub: "Don't decide too quickly. 💗",
+        emoji: "🥹"
+    },
+
+    {
+        text: "Are you really sure? 😭",
+        sub: "Give that little YES button another look! 🌷",
+        emoji: "💌"
+    },
+
+    {
+        text: "Abhiiii, please! 🥹",
+        sub: "I made this little universe just for you. ❤️",
+        emoji: "🐻"
+    },
+
+    {
+        text: "Still thinking? 🙈",
+        sub: "Take your time. This is a special question. 💗",
+        emoji: "💞"
+    },
+
+    {
+        text: "One more thought? 🌷",
+        sub: "Whatever you choose, our memories will always matter. ❤️",
+        emoji: "💗"
+    }
+
+];
+
+let noClickCount = 0;
+
+const noBtn = document.getElementById("noBtn");
+
+function moveNo(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+    const question = document.getElementById("question");
+    const subtext = document.getElementById("subtext");
+    const gif = document.getElementById("proposalGif");
+
+    const message =
+        noMessages[noClickCount % noMessages.length];
+
+    question.textContent = message.text;
+    subtext.textContent = message.sub;
+    gif.textContent = message.emoji;
+
+    noClickCount++;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.zIndex = "15";
+
+    const margin = 20;
+
+    const maxX = Math.max(
+        margin,
+        window.innerWidth - noBtn.offsetWidth - margin
+    );
+
+    const maxY = Math.max(
+        margin,
+        window.innerHeight - noBtn.offsetHeight - margin
+    );
+
+    noBtn.style.left =
+        (margin + Math.random() * (maxX - margin)) + "px";
+
+    noBtn.style.top =
+        (margin + Math.random() * (maxY - margin)) + "px";
+
+}
+
+noBtn.addEventListener("pointerenter", moveNo);
+noBtn.addEventListener("click", moveNo);
+noBtn.addEventListener("touchstart", moveNo, {
+    passive: false
+});
+
+
+// YES BUTTON
+
+function sayYes() {
+
+    document.getElementById("question").textContent =
+        "Here's to our next beautiful chapter! ❤️💍";
+
+    document.getElementById("subtext").textContent =
+        "Thank you for being part of my story, Abhi. I hope we keep making beautiful memories together. 🥹💗";
+
+    document.getElementById("proposalGif").textContent =
+        "💐💖💍💖💐";
+
+    document.getElementById("buttons")
+        .classList.add("hidden");
+
+    document.getElementById("result").innerHTML =
+        "You made this moment extra special. ❤️<br>" +
+        "Here's to more happy memories together! 🥹💗";
+
+    for (let i = 0; i < 25; i++) {
+
+        setTimeout(createHeart, i * 100);
+
+    }
+
+}
+
+
+// FLOATING HEARTS
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.textContent = [
+        "💗", "💕", "❤️", "💖", "🌸"
+    ][Math.floor(Math.random() * 5)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (16 + Math.random() * 20) + "px";
+
+    heart.style.animationDuration =
+        (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8500);
+
+}
+
+let heartTimerStarted = false;
+
+function startHearts() {
+
+    if (heartTimerStarted) return;
+
+    heartTimerStarted = true;
+
+    setInterval(createHeart, 1100);
+
+}
+
+</script>
+
+</body>
+</html>
